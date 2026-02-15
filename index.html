@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Special Day</title>
+<title>Our Anniversary 💗</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -16,108 +16,76 @@
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg,#ffd6e8,#d6f6ff,#fef3c7);
-    overflow:hidden;
+    background:linear-gradient(135deg,#ffc0cb,#ffd6e8,#ffe6f2);
+    overflow-x:hidden;
 }
 
 /* floating hearts */
 .heart{
-    position:absolute;
-    bottom:-50px;
-    width:20px;
-    height:20px;
-    background:#ff9ecb;
+    position:fixed;
+    bottom:-20px;
+    width:15px;
+    height:15px;
+    background:#ff69b4;
     transform:rotate(45deg);
-    animation:float 8s linear infinite;
+    animation:float 7s linear infinite;
+    opacity:0.6;
 }
 
 .heart::before,
 .heart::after{
     content:'';
     position:absolute;
-    width:20px;
-    height:20px;
-    background:#ff9ecb;
+    width:15px;
+    height:15px;
+    background:#ff69b4;
     border-radius:50%;
 }
 
-.heart::before{
-    top:-10px;
-    left:0;
-}
-
-.heart::after{
-    left:-10px;
-    top:0;
-}
+.heart::before{ top:-7px; left:0; }
+.heart::after{ left:-7px; top:0; }
 
 @keyframes float{
-    0%{
-        transform:translateY(0) rotate(45deg);
-        opacity:1;
-    }
-    100%{
-        transform:translateY(-110vh) rotate(45deg);
-        opacity:0;
-    }
+    0%{ transform:translateY(0) rotate(45deg); opacity:0.7;}
+    100%{ transform:translateY(-110vh) rotate(45deg); opacity:0;}
 }
 
-/* main card */
+/* card */
 .card{
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.3);
-    padding:40px;
+    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,0.4);
+    padding:40px 30px;
     border-radius:25px;
     text-align:center;
     width:90%;
-    max-width:400px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.1);
-    animation:fadeIn 2s ease;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
+    max-width:420px;
+    box-shadow:0 10px 40px rgba(255,105,180,0.2);
 }
 
 h1{
-    font-weight:700;
-    color:#ff6fa5;
+    color:#ff1493;
     margin-bottom:10px;
 }
 
 .counter{
-    font-size:18px;
-    margin-bottom:20px;
+    margin:15px 0;
+    font-size:16px;
     color:#444;
 }
 
-button{
-    padding:10px 25px;
-    border:none;
-    border-radius:20px;
-    background:#ff9ecb;
-    color:white;
-    font-weight:500;
-    cursor:pointer;
-    transition:0.3s;
+.date{
+    font-size:13px;
+    color:#666;
+    margin-bottom:20px;
 }
 
-button:hover{
-    background:#ff6fa5;
-    transform:scale(1.05);
-}
-
-.message{
-    margin-top:20px;
-    display:none;
-    font-size:14px;
-    color:#333;
-    animation:fadeIn 1s ease;
+iframe{
+    margin-top:15px;
+    border-radius:12px;
 }
 </style>
 </head>
@@ -125,56 +93,68 @@ button:hover{
 <body>
 
 <div class="card">
-    <h1>Happy Anniversary 💗</h1>
-    <div class="counter" id="counter"></div>
-    <button onclick="showMessage()">Open My Heart</button>
-    <div class="message" id="message">
-        Thank you for staying, loving, and choosing me every single day.  
-        Here’s to more memories, more laughter, and forever with you 🌸
+    <h1>Happy 1 Year Anniversary 💕</h1>
+
+    <div class="date">
+        15 February 2025 – 15 February 2026
     </div>
+
+    <div class="counter" id="counter"></div>
+
+    <!-- Spotify Embed Pretty Girl - Clairo -->
+    <iframe style="border-radius:12px"
+    src="https://open.spotify.com/track/27g0ztD0kKcDJRrIFDl8q8?si=cpzmmYwqRwaAn0x8o9NYUw"
+    width="100%" height="80" frameBorder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
 </div>
 
-<!-- Music (optional, ganti link mp3 kamu sendiri) -->
-<iframe style="border-radius:12px"
-src="https://open.spotify.com/embed/track/5QYhA6bm0JrCq5pTxAqj6G"
-width="100%" height="80" frameBorder="0"
-allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-</iframe>
-
 <script>
-// anniversary date (GANTI tanggal jadian kamu)
-const startDate = new Date("2025-02-15");
+// START DATE
+const startDate = new Date("2025-02-15T00:00:00");
+
+// END DATE
+const endDate = new Date("2026-02-15T00:00:00");
 
 function updateCounter(){
-    const now = new Date("2026-02-15);
-    const diff = now - startDate;
-    const days = Math.floor(diff / (1000*60*60*24));
-    document.getElementById("counter").innerHTML =
-        `We have been together for <b>${days}</b> days 💕`;
+    const now = new Date();
+
+    const diffStart = now - startDate;
+    const daysPassed = Math.floor(diffStart / (1000*60*60*24));
+
+    const diffEnd = endDate - now;
+    const daysLeft = Math.ceil(diffEnd / (1000*60*60*24));
+
+    if(now < startDate){
+        document.getElementById("counter").innerHTML =
+        "Our journey hasn't started yet 💗";
+    }
+    else if(now > endDate){
+        document.getElementById("counter").innerHTML =
+        "We completed 365 beautiful days together 💕";
+    }
+    else{
+        document.getElementById("counter").innerHTML =
+        `We’ve been together for <b>${daysPassed}</b> days 💖<br>
+        ${daysLeft} days until our 1 year anniversary ✨`;
+    }
 }
 
 updateCounter();
 
-// reveal message
-function showMessage(){
-    document.getElementById("message").style.display = "block";
-}
-
-// generate floating hearts
+/* floating hearts generator */
 function createHeart(){
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.style.left = Math.random()*100 + "vw";
-    heart.style.animationDuration = (Math.random()*5+5)+"s";
+    heart.style.animationDuration = (Math.random()*3+4)+"s";
     document.body.appendChild(heart);
 
-    setTimeout(()=>{
-        heart.remove();
-    },8000);
+    setTimeout(()=>{ heart.remove(); },7000);
 }
 
-setInterval(createHeart,500);
+setInterval(createHeart,800);
 </script>
 
 </body>
-  </html>
+</html>
