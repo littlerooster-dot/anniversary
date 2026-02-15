@@ -1,393 +1,264 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 🤍</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Celebration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* Menggunakan Helvetica / Sans-Serif Standar */
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #fcfcfc;
+            color: #333;
+            scroll-behavior: smooth;
+        }
 
-<script src="https://cdn.tailwindcss.com"></script>
+        .title-bold {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
 
-<style>
-body {
-  margin: 0;
-  overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont,
-               "SF Pro Display","SF Pro Text",
-               "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: radial-gradient(circle at top, #fff, #ffeaf0);
-}
+        .text-normal {
+            font-weight: 400;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
 
-/* ================= GIFT ================= */
+        /* Container Sections */
+        .full-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
 
-.gift-wrapper {
-  perspective: 1200px;
-}
+        /* Minimalist Gift Box */
+        .gift-box {
+            width: 180px;
+            height: 180px;
+            background-color: #f8ad9d; /* Soft Pastel Coral */
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
 
-.gift-box {
-  width: 190px;
-  height: 170px;
-  background: linear-gradient(145deg, #ff4d6d, #ff8fab);
-  border-radius: 25px;
-  position: relative;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform .6s ease, opacity .6s ease;
-  box-shadow: 0 25px 50px rgba(255, 77, 109, .35);
-  animation: float 3s ease-in-out infinite;
-}
+        .gift-box:hover {
+            transform: translateY(-5px);
+        }
 
-/* floating */
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-18px); }
-}
+        .ribbon-v {
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: #fbc4ab;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-/* ribbon */
-.gift-box::before {
-  content:"";
-  position:absolute;
-  width:32px;
-  height:100%;
-  background:white;
-  left:50%;
-  transform:translateX(-50%);
-  border-radius:12px;
-}
+        .ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: #fbc4ab;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-.gift-box::after {
-  content:"";
-  position:absolute;
-  width:100%;
-  height:32px;
-  background:white;
-  top:50%;
-  transform:translateY(-50%);
-  border-radius:12px;
-}
+        /* Polaroid Proper Style */
+        .polaroid-stack {
+            position: relative;
+            width: 300px;
+            height: 380px;
+        }
 
-/* lid */
-.box-lid {
-  position:absolute;
-  width:220px;
-  height:55px;
-  background:linear-gradient(145deg, #ff4d6d, #ff8fab);
-  border-radius:35px;
-  top:-35px;
-  left:-15px;
-  transition: transform .7s cubic-bezier(.2,.8,.2,1);
-}
+        .polaroid-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 12px 12px 50px 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #efefef;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s;
+        }
 
-/* sparkle */
-.sparkle {
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:white;
-  border-radius:50%;
-  opacity:0;
-  animation:sparkle 2s infinite;
-}
+        /* Placeholder untuk Gambar */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #eeeeee; /* Warna abu-abu kosong */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 2px;
+        }
 
-@keyframes sparkle {
-  0% {opacity:0; transform:translateY(0);}
-  50% {opacity:1;}
-  100% {opacity:0; transform:translateY(-40px);}
-}
+        .polaroid-caption {
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 500;
+            color: #666;
+        }
 
-.gift-box.open {
-  transform: scale(0) rotate(20deg);
-  opacity:0;
-}
+        .polaroid-card.swipe {
+            transform: translateX(120%) rotate(20deg) !important;
+            opacity: 0;
+        }
 
-/* confetti */
-.confetti {
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:#ff4d6d;
-  top:50%;
-  left:50%;
-  opacity:0;
-}
-
-@keyframes explode {
-  to {
-    transform: translate(var(--x), var(--y)) rotate(720deg);
-    opacity:0;
-  }
-}
-
-/* ================= SLIDER ================= */
-
-.slider {
-  display:flex;
-  width:400vw;
-  transition:transform .8s ease-in-out;
-}
-
-.slide {
-  width:100vw;
-  height:100vh;
-  flex-shrink:0;
-}
-
-</style>
+        /* Spotify Card */
+        .spotify-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- ================= GIFT ================= -->
-
-<div id="giftSection" class="flex flex-col items-center justify-center h-screen text-center relative">
-
-  <h1 class="text-3xl font-semibold text-gray-800 mb-14">
-    I have something special for you 🤍
-  </h1>
-
-  <div class="gift-wrapper">
-    <div id="giftBox" class="gift-box" onclick="openGift()">
-      <div class="box-lid"></div>
-
-      <div class="sparkle" style="top:20%; left:20%;"></div>
-      <div class="sparkle" style="top:30%; right:25%; animation-delay:.5s;"></div>
-      <div class="sparkle" style="bottom:25%; left:40%; animation-delay:1s;"></div>
-    </div>
-  </div>
-
-  <p class="text-gray-400 mt-10 animate-pulse text-sm">
-    Tap the magic box ✨
-  </p>
-
-</div>
-
-<!-- ================= LETTER ================= -->
-
-<div id="letterSection"
-     class="hidden opacity-0 transition-opacity duration-1000 absolute inset-0 flex items-center justify-center px-8">
-
-  <div class="bg-white rounded-3xl p-10 shadow-xl max-w-md text-center">
-
-    <h2 class="text-2xl font-semibold mb-6">
-      Happy Anniversary 🤍
-    </h2>
-
-    <p class="text-gray-600 leading-relaxed text-[15px]">
-      Sorry I give you this late. 
-      Thanks for wanting to be friends with me 
-      sekarang udah mau jadi adek aku :(
-      I treasure all of it.
-      <br><br>
-      Thank you for staying.
-      Thank you for choosing me.
-      Thank you for loving me the way you do.
-      <br><br>
-      Please always be my cein, please don't change.
-      I love you more than my words.
-    </p>
-
-    <button onclick="goToSlides()"
-            class="mt-8 bg-black text-white px-6 py-3 rounded-full text-sm">
-      Continue →
-    </button>
-
-  </div>
-</div>
-
-<!-- ================= SLIDER ================= -->
-
-<div id="sliderContainer" class="hidden overflow-hidden">
-  <div id="slider" class="slider">
-
-    <div class="slide flex items-center justify-center bg-[#fff0f3]">
-      <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=800"
-           class="rounded-3xl shadow-xl max-w-sm">
+    <div id="section-1" class="full-screen">
+        <h1 class="text-3xl md:text-4xl title-bold mb-12 animate__animated animate__fadeIn">Happy Anniversary.</h1>
+        <div id="box" class="gift-box" onclick="startApp()">
+            <div class="ribbon-v"></div>
+            <div class="ribbon-h"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-white text-xs tracking-widest font-bold">TAP TO OPEN</span>
+            </div>
+        </div>
     </div>
 
-    <div class="slide flex items-center justify-center bg-[#ffe5ec]">
-      <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800"
-           class="rounded-3xl shadow-xl max-w-sm">
+    <div id="section-2" class="hidden full-screen bg-white">
+        <div class="max-w-xl w-full animate__animated animate__fadeInUp">
+            <h2 class="text-4xl title-bold mb-8 text-black">To My Dearest,</h2>
+            <div class="text-normal text-lg space-y-6">
+                <p>
+                    I wanted to take a moment to celebrate us. Looking back at everything we've been through, 
+                    I'm filled with so much gratitude that you're the one by my side.
+                </p>
+                <p>
+                    Thank you for the kindness you show me every day, for the laughter we share, 
+                    and for making every ordinary moment feel special. You are my greatest support 
+                    and my favorite person.
+                </p>
+                <p>
+                    Here's to many more years of growing, learning, and loving together. 
+                    I love you, more than ever.
+                </p>
+            </div>
+            <div class="mt-12">
+                <button onclick="navigate('section-3')" class="flex items-center gap-2 text-black title-bold border-b-2 border-black pb-1 hover:opacity-50 transition">
+                    VIEW OUR MEMORIES <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="slide flex items-center justify-center bg-[#fff0f3]">
-      <img src="https://images.unsplash.com/photo-1516589174184-c68526614467?q=80&w=800"
-           class="rounded-3xl shadow-xl max-w-sm">
+    <div id="section-3" class="hidden full-screen">
+        <h2 class="text-2xl title-bold mb-16 uppercase tracking-widest">Memories</h2>
+        
+        <div class="polaroid-stack">
+            <div class="polaroid-card" style="transform: rotate(-2deg); z-index: 1;" onclick="swipe(this)">
+                <div class="image-placeholder">
+                    <span>Your Photo 3</span>
+                </div>
+                <div class="polaroid-caption">Infinite love.</div>
+            </div>
+
+            <div class="polaroid-card" style="transform: rotate(3deg); z-index: 2;" onclick="swipe(this)">
+                <div class="image-placeholder">
+                    <span>Your Photo 2</span>
+                </div>
+                <div class="polaroid-caption">Always you.</div>
+            </div>
+
+            <div class="polaroid-card" style="transform: rotate(-1deg); z-index: 3;" onclick="swipe(this)">
+                <div class="image-placeholder">
+                    <span>Your Photo 1</span>
+                </div>
+                <div class="polaroid-caption">Where it all began.</div>
+            </div>
+        </div>
+
+        <p class="mt-8 text-gray-400 text-xs tracking-widest">CLICK TO STACK</p>
+
+        <button onclick="navigate('section-4')" class="mt-16 bg-black text-white px-10 py-4 rounded-full title-bold text-xs tracking-widest hover:bg-gray-800 transition shadow-lg">
+            NEXT: OUR SONG
+        </button>
     </div>
 
-    <div class="slide flex flex-col items-center justify-center bg-white text-center px-6">
-      <h2 class="text-2xl font-semibold mb-6">Our Song 🤍</h2>
-      <a href="https://open.spotify.com"
-         target="_blank"
-         class="bg-[#1db954] text-white px-8 py-4 rounded-full font-semibold">
-         Open Spotify
-      </a>
+    <div id="section-4" class="hidden full-screen">
+        <div class="spotify-card text-center animate__animated animate__zoomIn">
+            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="music" class="text-white w-8 h-8"></i>
+            </div>
+            <h2 class="text-2xl title-bold mb-2">Our Playlist</h2>
+            <p class="text-normal mb-10 text-sm">A collection of songs that remind me of us.</p>
+            
+            <a href="YOUR_SPOTIFY_LINK_HERE" target="_blank" class="block w-full py-4 bg-black text-white title-bold text-xs tracking-widest rounded-xl hover:bg-gray-800 transition">
+                OPEN SPOTIFY
+            </a>
+            
+            <p class="mt-6 text-[10px] text-gray-400 uppercase tracking-[0.2em]">Established 2024</p>
+        </div>
     </div>
 
-  </div>
-</div>
+    <script>
+        lucide.createIcons();
 
-<script>
+        function startApp() {
+            const box = document.getElementById('box');
+            box.style.transform = "scale(0.8) rotate(10deg)";
+            box.style.opacity = "0";
+            
+            setTimeout(() => {
+                navigate('section-2');
+            }, 500);
+        }
 
-let currentSlide = 0;
+        function navigate(id) {
+            // Hide all sections
+            document.querySelectorAll('body > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            // Show target
+            const target = document.getElementById(id);
+            target.classList.remove('hidden');
+            target.classList.add('animate__animated', 'animate__fadeIn');
+            window.scrollTo(0,0);
+        }
 
-function openGift() {
-
-  const box = document.getElementById("giftBox");
-  const lid = document.querySelector(".box-lid");
-
-  /* lid fly */
-  lid.style.transform = "translateY(-130px) rotate(25deg)";
-
-  /* confetti burst */
-  for(let i=0;i<25;i++){
-    const conf = document.createElement("div");
-    conf.className="confetti";
-    conf.style.setProperty("--x", (Math.random()*400-200)+"px");
-    conf.style.setProperty("--y", (Math.random()*-400)+"px");
-    conf.style.background = `hsl(${Math.random()*360},80%,60%)`;
-    conf.style.animation="explode .8s ease-out forwards";
-    document.getElementById("giftSection").appendChild(conf);
-    setTimeout(()=>conf.remove(),800);
-  }
-
-  setTimeout(()=>{
-    box.classList.add("open");
-  },400);
-
-  setTimeout(()=>{
-    document.getElementById("giftSection").classList.add("hidden");
-    const letter=document.getElementById("letterSection");
-    letter.classList.remove("hidden");
-    setTimeout(()=>{
-      letter.classList.remove("opacity-0");
-      letter.classList.add("opacity-100");
-    },100);
-  },900);
-}
-
-function goToSlides(){
-  document.getElementById("letterSection").classList.add("hidden");
-  document.getElementById("sliderContainer").classList.remove("hidden");
-  document.body.style.overflow="hidden";
-  document.addEventListener("click", nextSlide);
-}
-
-function nextSlide(){
-  currentSlide++;
-  if(currentSlide>3){
-    document.removeEventListener("click", nextSlide);
-    return;
-  }
-  document.getElementById("slider").style.transform =
-    `translateX(-${currentSlide*100}vw)`;
-}
-
-</script>
-
-</body>
-  </html>
-  <div class="bg-white rounded-3xl p-10 shadow-xl max-w-md text-center">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">
-      Happy Anniversary 🤍
-    </h2>
-
-    <p class="text-gray-600 leading-relaxed text-[15px]">
-      It feels unreal how far we've come.
-      Through every laugh, every random story,
-      every small argument, and every deep conversation —
-      I wouldn’t trade any of it for the world.
-      <br><br>
-      Thank you for staying.
-      Thank you for choosing me.
-      Thank you for loving me the way you do.
-      <br><br>
-      I’m proud of us.
-      And I can’t wait for the next chapters we’ll write together.
-    </p>
-
-    <button onclick="goToSlides()"
-            class="mt-8 bg-black text-white px-6 py-3 rounded-full text-sm">
-      Continue →
-    </button>
-  </div>
-</div>
-
-<!-- IMAGE + SPOTIFY SLIDER -->
-<div id="sliderContainer" class="hidden overflow-hidden">
-  <div id="slider" class="slider">
-
-    <!-- IMAGE 1 -->
-    <div class="slide flex items-center justify-center bg-[#fff0f3]">
-      <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=800"
-           class="rounded-3xl shadow-xl max-w-sm">
-    </div>
-
-    <!-- IMAGE 2 -->
-    <div class="slide flex items-center justify-center bg-[#ffe5ec]">
-      <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800"
-           class="rounded-3xl shadow-xl max-w-sm">
-    </div>
-
-    <!-- IMAGE 3 -->
-    <div class="slide flex items-center justify-center bg-[#fff0f3]">
-      <img src="https://images.unsplash.com/photo-1516589174184-c68526614467?q=80&w=800"
-           class="rounded-3xl shadow-xl max-w-sm">
-    </div>
-
-    <!-- SPOTIFY -->
-    <div class="slide flex flex-col items-center justify-center bg-white text-center px-6">
-      <h2 class="text-2xl font-semibold mb-6">Playlist for u</h2>
-
-      <a href="https://open.spotify.com/playlist/2TRxJgHwkyfp6K1oAzAuvq?si=6UxaAANZT8GCxkjS6MCXVw&pi=YbUPHe0QRBmP_"
-         target="_blank"
-         class="bg-[#1db954] text-white px-8 py-4 rounded-full font-semibold">
-         Open Spotify
-      </a>
-    </div>
-
-  </div>
-</div>
-
-<script>
-let currentSlide = 0;
-
-function openGift() {
-  const box = document.getElementById("giftBox");
-  const giftSection = document.getElementById("giftSection");
-  const letter = document.getElementById("letterSection");
-
-  box.classList.add("open");
-
-  setTimeout(() => {
-    giftSection.classList.add("hidden");
-    letter.classList.remove("hidden");
-
-    setTimeout(() => {
-      letter.classList.remove("opacity-0");
-      letter.classList.add("opacity-100");
-    }, 100);
-
-  }, 600);
-}
-
-function goToSlides() {
-  document.getElementById("letterSection").classList.add("hidden");
-  document.getElementById("sliderContainer").classList.remove("hidden");
-
-  document.body.style.overflow = "hidden";
-
-  document.addEventListener("click", nextSlide);
-}
-
-function nextSlide() {
-  currentSlide++;
-  if (currentSlide > 3) {
-    document.removeEventListener("click", nextSlide);
-    return;
-  }
-  document.getElementById("slider").style.transform =
-    `translateX(-${currentSlide * 100}vw)`;
-}
-</script>
-
+        function swipe(card) {
+            card.classList.add('swipe');
+            
+            setTimeout(() => {
+                card.classList.remove('swipe');
+                const parent = card.parentNode;
+                // Move to back
+                parent.insertBefore(card, parent.firstChild);
+                
+                // Re-calculate z-index
+                const cards = parent.querySelectorAll('.polaroid-card');
+                cards.forEach((c, index) => {
+                    c.style.zIndex = index + 1;
+                });
+            }, 600);
+        }
+    </script>
 </body>
 </html>
