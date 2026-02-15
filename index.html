@@ -14,74 +14,121 @@ body {
   font-family: -apple-system, BlinkMacSystemFont,
                "SF Pro Display","SF Pro Text",
                "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: linear-gradient(to bottom, #ffffff, #ffeef2);
+  background: radial-gradient(circle at top, #fff, #ffeaf0);
 }
 
-/* Gift */
+/* ================= GIFT ================= */
+
+.gift-wrapper {
+  perspective: 1200px;
+}
+
 .gift-box {
-  width: 180px;
-  height: 140px;
-  background: #ff8fab;
-  border-radius: 20px;
+  width: 190px;
+  height: 170px;
+  background: linear-gradient(145deg, #ff4d6d, #ff8fab);
+  border-radius: 25px;
   position: relative;
   cursor: pointer;
-  transition: .5s ease;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  transform-style: preserve-3d;
+  transition: transform .6s ease, opacity .6s ease;
+  box-shadow: 0 25px 50px rgba(255, 77, 109, .35);
+  animation: float 3s ease-in-out infinite;
 }
 
+/* floating */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+
+/* ribbon */
 .gift-box::before {
-  content: "";
-  position: absolute;
-  width: 28px;
-  height: 100%;
-  background: white;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 10px;
+  content:"";
+  position:absolute;
+  width:32px;
+  height:100%;
+  background:white;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:12px;
 }
 
 .gift-box::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 28px;
-  background: white;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 10px;
+  content:"";
+  position:absolute;
+  width:100%;
+  height:32px;
+  background:white;
+  top:50%;
+  transform:translateY(-50%);
+  border-radius:12px;
 }
 
+/* lid */
 .box-lid {
-  position: absolute;
-  width: 200px;
-  height: 45px;
-  background: #ff8fab;
-  border-radius: 25px;
-  top: -25px;
-  left: -10px;
-  transition: .5s ease;
+  position:absolute;
+  width:220px;
+  height:55px;
+  background:linear-gradient(145deg, #ff4d6d, #ff8fab);
+  border-radius:35px;
+  top:-35px;
+  left:-15px;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1);
 }
 
-.gift-box:hover .box-lid {
-  transform: translateY(-8px);
+/* sparkle */
+.sparkle {
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  opacity:0;
+  animation:sparkle 2s infinite;
+}
+
+@keyframes sparkle {
+  0% {opacity:0; transform:translateY(0);}
+  50% {opacity:1;}
+  100% {opacity:0; transform:translateY(-40px);}
 }
 
 .gift-box.open {
-  transform: scale(0);
-  opacity: 0;
+  transform: scale(0) rotate(20deg);
+  opacity:0;
 }
 
-/* Slider */
+/* confetti */
+.confetti {
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#ff4d6d;
+  top:50%;
+  left:50%;
+  opacity:0;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(var(--x), var(--y)) rotate(720deg);
+    opacity:0;
+  }
+}
+
+/* ================= SLIDER ================= */
+
 .slider {
-  display: flex;
-  width: 400vw;
-  transition: transform .7s ease-in-out;
+  display:flex;
+  width:400vw;
+  transition:transform .8s ease-in-out;
 }
 
 .slide {
-  width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
+  width:100vw;
+  height:100vh;
+  flex-shrink:0;
 }
 
 </style>
@@ -89,23 +136,155 @@ body {
 
 <body>
 
-<!-- GIFT SECTION -->
-<div id="giftSection" class="flex flex-col items-center justify-center h-screen text-center">
-  <h1 class="text-3xl font-semibold text-gray-800 mb-12 tracking-tight">
-    I have something for you 🤍
+<!-- ================= GIFT ================= -->
+
+<div id="giftSection" class="flex flex-col items-center justify-center h-screen text-center relative">
+
+  <h1 class="text-3xl font-semibold text-gray-800 mb-14">
+    I have something special for you 🤍
   </h1>
 
-  <div id="giftBox" class="gift-box" onclick="openGift()">
-    <div class="box-lid"></div>
+  <div class="gift-wrapper">
+    <div id="giftBox" class="gift-box" onclick="openGift()">
+      <div class="box-lid"></div>
+
+      <div class="sparkle" style="top:20%; left:20%;"></div>
+      <div class="sparkle" style="top:30%; right:25%; animation-delay:.5s;"></div>
+      <div class="sparkle" style="bottom:25%; left:40%; animation-delay:1s;"></div>
+    </div>
   </div>
 
-  <p class="text-sm text-gray-400 mt-8">Tap the box</p>
+  <p class="text-gray-400 mt-10 animate-pulse text-sm">
+    Tap the magic box ✨
+  </p>
+
 </div>
 
-<!-- LETTER -->
+<!-- ================= LETTER ================= -->
+
 <div id="letterSection"
      class="hidden opacity-0 transition-opacity duration-1000 absolute inset-0 flex items-center justify-center px-8">
 
+  <div class="bg-white rounded-3xl p-10 shadow-xl max-w-md text-center">
+
+    <h2 class="text-2xl font-semibold mb-6">
+      Happy Anniversary 🤍
+    </h2>
+
+    <p class="text-gray-600 leading-relaxed text-[15px]">
+      Sorry I give you this late. 
+      Thanks for wanting to be friends with me 
+      sekarang udah mau jadi adek aku :(
+      I treasure all of it.
+      <br><br>
+      Thank you for staying.
+      Thank you for choosing me.
+      Thank you for loving me the way you do.
+      <br><br>
+      Please always be my cein, please don't change.
+      I love you more than my words.
+    </p>
+
+    <button onclick="goToSlides()"
+            class="mt-8 bg-black text-white px-6 py-3 rounded-full text-sm">
+      Continue →
+    </button>
+
+  </div>
+</div>
+
+<!-- ================= SLIDER ================= -->
+
+<div id="sliderContainer" class="hidden overflow-hidden">
+  <div id="slider" class="slider">
+
+    <div class="slide flex items-center justify-center bg-[#fff0f3]">
+      <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=800"
+           class="rounded-3xl shadow-xl max-w-sm">
+    </div>
+
+    <div class="slide flex items-center justify-center bg-[#ffe5ec]">
+      <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800"
+           class="rounded-3xl shadow-xl max-w-sm">
+    </div>
+
+    <div class="slide flex items-center justify-center bg-[#fff0f3]">
+      <img src="https://images.unsplash.com/photo-1516589174184-c68526614467?q=80&w=800"
+           class="rounded-3xl shadow-xl max-w-sm">
+    </div>
+
+    <div class="slide flex flex-col items-center justify-center bg-white text-center px-6">
+      <h2 class="text-2xl font-semibold mb-6">Our Song 🤍</h2>
+      <a href="https://open.spotify.com"
+         target="_blank"
+         class="bg-[#1db954] text-white px-8 py-4 rounded-full font-semibold">
+         Open Spotify
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+let currentSlide = 0;
+
+function openGift() {
+
+  const box = document.getElementById("giftBox");
+  const lid = document.querySelector(".box-lid");
+
+  /* lid fly */
+  lid.style.transform = "translateY(-130px) rotate(25deg)";
+
+  /* confetti burst */
+  for(let i=0;i<25;i++){
+    const conf = document.createElement("div");
+    conf.className="confetti";
+    conf.style.setProperty("--x", (Math.random()*400-200)+"px");
+    conf.style.setProperty("--y", (Math.random()*-400)+"px");
+    conf.style.background = `hsl(${Math.random()*360},80%,60%)`;
+    conf.style.animation="explode .8s ease-out forwards";
+    document.getElementById("giftSection").appendChild(conf);
+    setTimeout(()=>conf.remove(),800);
+  }
+
+  setTimeout(()=>{
+    box.classList.add("open");
+  },400);
+
+  setTimeout(()=>{
+    document.getElementById("giftSection").classList.add("hidden");
+    const letter=document.getElementById("letterSection");
+    letter.classList.remove("hidden");
+    setTimeout(()=>{
+      letter.classList.remove("opacity-0");
+      letter.classList.add("opacity-100");
+    },100);
+  },900);
+}
+
+function goToSlides(){
+  document.getElementById("letterSection").classList.add("hidden");
+  document.getElementById("sliderContainer").classList.remove("hidden");
+  document.body.style.overflow="hidden";
+  document.addEventListener("click", nextSlide);
+}
+
+function nextSlide(){
+  currentSlide++;
+  if(currentSlide>3){
+    document.removeEventListener("click", nextSlide);
+    return;
+  }
+  document.getElementById("slider").style.transform =
+    `translateX(-${currentSlide*100}vw)`;
+}
+
+</script>
+
+</body>
+  </html>
   <div class="bg-white rounded-3xl p-10 shadow-xl max-w-md text-center">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">
       Happy Anniversary 🤍
@@ -156,7 +335,7 @@ body {
 
     <!-- SPOTIFY -->
     <div class="slide flex flex-col items-center justify-center bg-white text-center px-6">
-      <h2 class="text-2xl font-semibold mb-6">Our Song 🤍</h2>
+      <h2 class="text-2xl font-semibold mb-6">Playlist for u</h2>
 
       <a href="https://open.spotify.com/playlist/2TRxJgHwkyfp6K1oAzAuvq?si=6UxaAANZT8GCxkjS6MCXVw&pi=YbUPHe0QRBmP_"
          target="_blank"
