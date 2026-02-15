@@ -1,160 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Anniversary 💗</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary! 🌸</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Sacramento&display=swap');
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+        body {
+            background-color: #fdf2f2; /* Pastel Pink Soft */
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
+        .font-cursive {
+            font-family: 'Sacramento', cursive;
+        }
 
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ffc0cb,#ffd6e8,#ffe6f2);
-    overflow-x:hidden;
-}
+        /* Animasi Floating Hearts */
+        .heart {
+            position: absolute;
+            color: #ffb7b2;
+            opacity: 0.6;
+            animation: float 6s linear infinite;
+            z-index: 0;
+        }
 
-/* floating hearts */
-.heart{
-    position:fixed;
-    bottom:-20px;
-    width:15px;
-    height:15px;
-    background:#ff69b4;
-    transform:rotate(45deg);
-    animation:float 7s linear infinite;
-    opacity:0.6;
-}
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
 
-.heart::before,
-.heart::after{
-    content:'';
-    position:absolute;
-    width:15px;
-    height:15px;
-    background:#ff69b4;
-    border-radius:50%;
-}
-
-.heart::before{ top:-7px; left:0; }
-.heart::after{ left:-7px; top:0; }
-
-@keyframes float{
-    0%{ transform:translateY(0) rotate(45deg); opacity:0.7;}
-    100%{ transform:translateY(-110vh) rotate(45deg); opacity:0;}
-}
-
-/* card */
-.card{
-    backdrop-filter:blur(15px);
-    background:rgba(255,255,255,0.4);
-    padding:40px 30px;
-    border-radius:25px;
-    text-align:center;
-    width:90%;
-    max-width:420px;
-    box-shadow:0 10px 40px rgba(255,105,180,0.2);
-}
-
-h1{
-    color:#ff1493;
-    margin-bottom:10px;
-}
-
-.counter{
-    margin:15px 0;
-    font-size:16px;
-    color:#444;
-}
-
-.date{
-    font-size:13px;
-    color:#666;
-    margin-bottom:20px;
-}
-
-iframe{
-    margin-top:15px;
-    border-radius:12px;
-}
-</style>
+        /* Hover Effect Card */
+        .card-container {
+            transition: transform 0.3s ease;
+        }
+        .card-container:hover {
+            transform: scale(1.02);
+        }
+    </style>
 </head>
+<body class="flex items-center justify-center min-h-screen relative">
 
-<body>
+    <div id="hearts-container"></div>
 
-<div class="card">
-    <h1>Happy 1 Year Anniversary 💕</h1>
+    <div class="card-container relative z-10 bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl border-4 border-[#ffdac1] max-w-sm w-full mx-4 text-center">
+        
+        <div class="mb-6 flex justify-center">
+            <div class="bg-[#e2f0cb] p-4 rounded-full animate-bounce">
+                <i data-lucide="heart" class="w-12 h-12 text-[#ff9aa2] fill-current"></i>
+            </div>
+        </div>
 
-    <div class="date">
-        15 February 2025 – 15 February 2026
+        <h1 class="text-4xl font-cursive text-[#ff9aa2] mb-2">Happy Anniversary</h1>
+        <p class="text-gray-500 font-medium mb-6">"Satu tahun lagi, ribuan memori indah lainnya."</p>
+
+        <div class="relative mb-6 overflow-hidden rounded-xl border-2 border-[#b5ead7]">
+            <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=500" alt="Us" class="w-full h-48 object-cover opacity-90 hover:opacity-100 transition-opacity">
+        </div>
+
+        <div class="space-y-3">
+            <p class="text-sm text-gray-400 italic">Dibuat dengan ❤️ oleh Kamu</p>
+            <button onclick="alert('I Love You More! 💖')" class="bg-[#ffb7b2] hover:bg-[#ff9aa2] text-white px-6 py-2 rounded-full font-bold transition-colors shadow-md">
+                Klik Aku!
+            </button>
+        </div>
     </div>
 
-    <div class="counter" id="counter"></div>
+    <script>
+        // Inisialisasi Icon Lucide
+        lucide.createIcons();
 
-    <!-- Spotify Embed Pretty Girl - Clairo -->
-    <iframe style="border-radius:12px"
-    src="https://open.spotify.com/track/27g0ztD0kKcDJRrIFDl8q8?si=cpzmmYwqRwaAn0x8o9NYUw"
-    width="100%" height="80" frameBorder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-    </iframe>
-</div>
+        // Script untuk bikin hujan hati
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`;
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            
+            document.getElementById('hearts-container').appendChild(heart);
 
-<script>
-// START DATE
-const startDate = new Date("2025-02-15T00:00:00");
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
 
-// END DATE
-const endDate = new Date("2026-02-15T00:00:00");
-
-function updateCounter(){
-    const now = new Date();
-
-    const diffStart = now - startDate;
-    const daysPassed = Math.floor(diffStart / (1000*60*60*24));
-
-    const diffEnd = endDate - now;
-    const daysLeft = Math.ceil(diffEnd / (1000*60*60*24));
-
-    if(now < startDate){
-        document.getElementById("counter").innerHTML =
-        "Our journey hasn't started yet 💗";
-    }
-    else if(now > endDate){
-        document.getElementById("counter").innerHTML =
-        "We completed 365 beautiful days together 💕";
-    }
-    else{
-        document.getElementById("counter").innerHTML =
-        `We’ve been together for <b>${daysPassed}</b> days 💖<br>
-        ${daysLeft} days until our 1 year anniversary ✨`;
-    }
-}
-
-updateCounter();
-
-/* floating hearts generator */
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.animationDuration = (Math.random()*3+4)+"s";
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{ heart.remove(); },7000);
-}
-
-setInterval(createHeart,800);
-</script>
-
+        setInterval(createHeart, 300);
+    </script>
 </body>
 </html>
