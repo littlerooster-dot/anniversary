@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 🤍</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont,
+               "SF Pro Display","SF Pro Text",
+               "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: linear-gradient(to bottom, #ffffff, #ffeef2);
+}
+
+/* Gift */
+.gift-box {
+  width: 180px;
+  height: 140px;
+  background: #ff8fab;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: .5s ease;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+.gift-box::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 100%;
+  background: white;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+.gift-box::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 28px;
+  background: white;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 10px;
+}
+
+.box-lid {
+  position: absolute;
+  width: 200px;
+  height: 45px;
+  background: #ff8fab;
+  border-radius: 25px;
+  top: -25px;
+  left: -10px;
+  transition: .5s ease;
+}
+
+.gift-box:hover .box-lid {
+  transform: translateY(-8px);
+}
+
+.gift-box.open {
+  transform: scale(0);
+  opacity: 0;
+}
+
+/* Slider */
+.slider {
+  display: flex;
+  width: 400vw;
+  transition: transform .7s ease-in-out;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- GIFT SECTION -->
+<div id="giftSection" class="flex flex-col items-center justify-center h-screen text-center">
+  <h1 class="text-3xl font-semibold text-gray-800 mb-12 tracking-tight">
+    I have something for you 🤍
+  </h1>
+
+  <div id="giftBox" class="gift-box" onclick="openGift()">
+    <div class="box-lid"></div>
+  </div>
+
+  <p class="text-sm text-gray-400 mt-8">Tap the box</p>
+</div>
+
+<!-- LETTER -->
+<div id="letterSection"
+     class="hidden opacity-0 transition-opacity duration-1000 absolute inset-0 flex items-center justify-center px-8">
+
+  <div class="bg-white rounded-3xl p-10 shadow-xl max-w-md text-center">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+      Happy Anniversary 🤍
+    </h2>
+
+    <p class="text-gray-600 leading-relaxed text-[15px]">
+      It feels unreal how far we've come.
+      Through every laugh, every random story,
+      every small argument, and every deep conversation —
+      I wouldn’t trade any of it for the world.
+      <br><br>
+      Thank you for staying.
+      Thank you for choosing me.
+      Thank you for loving me the way you do.
+      <br><br>
+      I’m proud of us.
+      And I can’t wait for the next chapters we’ll write together.
+    </p>
+
+    <button onclick="goToSlides()"
+            class="mt-8 bg-black text-white px-6 py-3 rounded-full text-sm">
+      Continue →
+    </button>
+  </div>
+</div>
+
+<!-- IMAGE + SPOTIFY SLIDER -->
+<div id="sliderContainer" class="hidden overflow-hidden">
+  <div id="slider" class="slider">
+
+    <!-- IMAGE 1 -->
+    <div class="slide flex items-center justify-center bg-[#fff0f3]">
+      <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=800"
+           class="rounded-3xl shadow-xl max-w-sm">
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="slide flex items-center justify-center bg-[#ffe5ec]">
+      <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800"
+           class="rounded-3xl shadow-xl max-w-sm">
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="slide flex items-center justify-center bg-[#fff0f3]">
+      <img src="https://images.unsplash.com/photo-1516589174184-c68526614467?q=80&w=800"
+           class="rounded-3xl shadow-xl max-w-sm">
+    </div>
+
+    <!-- SPOTIFY -->
+    <div class="slide flex flex-col items-center justify-center bg-white text-center px-6">
+      <h2 class="text-2xl font-semibold mb-6">Our Song 🤍</h2>
+
+      <a href="https://open.spotify.com/playlist/2TRxJgHwkyfp6K1oAzAuvq?si=6UxaAANZT8GCxkjS6MCXVw&pi=YbUPHe0QRBmP_"
+         target="_blank"
+         class="bg-[#1db954] text-white px-8 py-4 rounded-full font-semibold">
+         Open Spotify
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let currentSlide = 0;
+
+function openGift() {
+  const box = document.getElementById("giftBox");
+  const giftSection = document.getElementById("giftSection");
+  const letter = document.getElementById("letterSection");
+
+  box.classList.add("open");
+
+  setTimeout(() => {
+    giftSection.classList.add("hidden");
+    letter.classList.remove("hidden");
+
+    setTimeout(() => {
+      letter.classList.remove("opacity-0");
+      letter.classList.add("opacity-100");
+    }, 100);
+
+  }, 600);
+}
+
+function goToSlides() {
+  document.getElementById("letterSection").classList.add("hidden");
+  document.getElementById("sliderContainer").classList.remove("hidden");
+
+  document.body.style.overflow = "hidden";
+
+  document.addEventListener("click", nextSlide);
+}
+
+function nextSlide() {
+  currentSlide++;
+  if (currentSlide > 3) {
+    document.removeEventListener("click", nextSlide);
+    return;
+  }
+  document.getElementById("slider").style.transform =
+    `translateX(-${currentSlide * 100}vw)`;
+}
+</script>
+
+</body>
+</html>
