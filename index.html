@@ -202,15 +202,101 @@
         </button>
     </div>
 
-    <div id="gallerySection" class="hidden flex flex-col items-center justify-center min-h-screen p-6">
-        <h2 class="text-5xl font-cursive text-[#ff9aa2] mb-12 animate__animated animate__fadeIn">Momen-Momen Indah Kita</h2>
-        <div class="photo-gallery max-w-4xl mx-auto">
-            <img src="https://images.unsplash.com/photo-1542475730-22c7a72666a3?q=80&w=300" alt="Momen 1">
-            <img src="https://images.unsplash.com/photo-1610444607770-ceb76e10222f?q=80&w=300" alt="Momen 2">
-            <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=300" alt="Momen 3">
-            <img src="https://images.unsplash.com/photo-1529156069976-93883a884814?q=80&w=300" alt="Momen 4">
-            <img src="https://images.unsplash.com/photo-1517457373958-b7bdd458ad20?q=80&w=300" alt="Momen 5">
-            <img src="https://images.unsplash.com/photo-1542475730-22c7a72666a3?q=80&w=300" alt="Momen 6">
+    <div id="gallerySection" class="hidden flex flex-col items-center justify-center min-h-screen p-6 relative overflow-hidden">
+    <h2 class="text-5xl font-cursive text-[#ff9aa2] mb-12 animate__animated animate__fadeIn">Kenangan Kita</h2>
+    
+    <div class="relative w-72 h-96 md:w-80 md:h-[400px] perspective-1000">
+        <div class="polaroid-card" onclick="nextPhoto(this)">
+            <img src="https://images.unsplash.com/photo-1518199266791-7399a9a3cf58?q=80&w=400" alt="Foto 1">
+            <div class="polaroid-caption">First Date ✨</div>
+        </div>
+        
+        <div class="polaroid-card" onclick="nextPhoto(this)">
+            <img src="https://images.unsplash.com/photo-1516589174184-c68526614467?q=80&w=400" alt="Foto 2">
+            <div class="polaroid-caption">Ketawa bareng kamu ❤️</div>
+        </div>
+
+        <div class="polaroid-card" onclick="nextPhoto(this)">
+            <img src="https://images.unsplash.com/photo-1529156069976-93883a884814?q=80&w=400" alt="Foto 3">
+            <div class="polaroid-caption">Our Favorite Place 🍦</div>
+        </div>
+
+        <div class="polaroid-card" onclick="nextPhoto(this)">
+            <img src="https://images.unsplash.com/photo-1494972308805-463bc619d34e?q=80&w=400" alt="Foto 4">
+            <div class="polaroid-caption">Momen Tak Terlupakan 🌊</div>
+        </div>
+    </div>
+
+    <p class="mt-8 text-gray-400 text-sm animate-bounce italic">Klik fotonya buat ganti!</p>
+
+    <button onclick="nextStep('spotifySection')" class="mt-12 bg-[var(--pastel-pink)] hover:bg-[#ff8f8a] text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all">
+        Lanjut ke Lagu Kita <i data-lucide="music" class="inline-block ml-2 w-5 h-5"></i>
+    </button>
+</div>
+
+<style>
+    /* Styling Polaroid */
+    .polaroid-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        padding: 15px 15px 40px 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border: 1px solid #eee;
+        cursor: pointer;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s;
+        transform-origin: center;
+    }
+
+    .polaroid-card img {
+        width: 100%;
+        height: 85%;
+        object-fit: cover;
+        border: 1px solid #f0f0f0;
+    }
+
+    .polaroid-caption {
+        font-family: 'Sacramento', cursive;
+        font-size: 1.8rem;
+        text-align: center;
+        margin-top: 15px;
+        color: #555;
+    }
+
+    /* Rotasi acak biar natural kayak tumpukan beneran */
+    .polaroid-card:nth-child(1) { transform: rotate(2deg); z-index: 4; }
+    .polaroid-card:nth-child(2) { transform: rotate(-3deg); z-index: 3; }
+    .polaroid-card:nth-child(3) { transform: rotate(4deg); z-index: 2; }
+    .polaroid-card:nth-child(4) { transform: rotate(-2deg); z-index: 1; }
+
+    /* Animasi saat diklik (dibuang ke samping) */
+    .polaroid-card.swipe {
+        transform: translateX(150%) rotate(30deg) !important;
+        opacity: 0;
+    }
+</style>
+
+<script>
+    // Fungsi baru untuk swipe foto polaroid
+    function nextPhoto(card) {
+        card.classList.add('swipe');
+        
+        // Setelah animasi selesai, pindahin card ke paling bawah tumpukan
+        setTimeout(() => {
+            card.classList.remove('swipe');
+            const parent = card.parentNode;
+            parent.insertBefore(card, parent.firstChild); // Pindah ke index paling bawah (z-index terendah)
+            
+            // Reset rotasi sedikit biar tetep dapet efek tumpukan acak
+            const randomRot = Math.floor(Math.random() * 10) - 5;
+            card.style.transform = `rotate(${randomRot}deg)`;
+        }, 600);
+    }
+</script>
+
         </div>
         <button onclick="nextStep('spotifySection')" class="mt-12 bg-[var(--pastel-pink)] hover:bg-[#ff8f8a] text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all animate__animated animate__pulse animate__infinite">
             Putar Lagu Kita <i data-lucide="music" class="inline-block ml-2 w-5 h-5"></i>
