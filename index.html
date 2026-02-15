@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Anniversary</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background:#FFF8F3; /* Pearl */
+    text-align:center;
+}
+
+/* Title */
+h1 {
+    margin-top:40px;
+    font-family:'Playfair Display', serif;
+    color:#5B4A45; /* Divine */
+    font-size:32px;
+}
+
+/* 🎁 Gift Box */
+.gift-box {
+    width:130px;
+    height:130px;
+    background:#FFAED5; /* Lovely */
+    margin:40px auto;
+    position:relative;
+    cursor:pointer;
+    border-radius:15px;
+    transition:0.3s;
+}
+
+.gift-box:hover {
+    transform:scale(1.05);
+}
+
+.gift-box:before {
+    content:"";
+    position:absolute;
+    width:130px;
+    height:30px;
+    background:#F1DDDD; /* Rose */
+    top:-30px;
+    left:0;
+    border-radius:15px 15px 0 0;
+}
+
+/* Letter Popup */
+.letter-popup {
+    display:none;
+    background:#F1DDDD; /* Rose */
+    width:85%;
+    max-width:400px;
+    margin:20px auto;
+    padding:25px;
+    border-radius:20px;
+    color:#5B4A45;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* 📸 Polaroid */
+.gallery {
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:50px;
+}
+
+.polaroid {
+    background:white;
+    padding:10px 10px 30px 10px;
+    width:180px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.15);
+    cursor:pointer;
+    transition:0.3s;
+    border-radius:10px;
+}
+
+.polaroid img {
+    width:100%;
+    border-radius:5px;
+}
+
+.polaroid:hover {
+    transform:rotate(-3deg) scale(1.05);
+}
+
+/* 🎵 Spotify Button */
+.spotify-btn {
+    display:inline-block;
+    margin:50px 0;
+    padding:12px 25px;
+    background:#5B4A45; /* Divine */
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+    transition:0.3s;
+}
+
+.spotify-btn:hover {
+    background:#FFAED5;
+    color:#5B4A45;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Happy Anniversary 🤍</h1>
+
+<!-- 🎁 Gift -->
+<div class="gift-box" onclick="openLetter()"></div>
+
+<div class="letter-popup" id="letter">
+    <p>
+    To my favorite person,<br><br>
+    Thank you for staying, loving, and choosing me every day.
+    This year with you feels like a soft dream I never want to wake up from.
+    🤍
+    </p>
+</div>
+
+<!-- 📸 Polaroid Gallery -->
+<div class="gallery" id="gallery">
+
+    <!-- GANTI LINK DRIVE DI BAWAH -->
+    <div class="polaroid" onclick="swap(this)">
+        <img src="LINK_IMAGE_DRIVE_1" alt="">
+    </div>
+
+    <div class="polaroid" onclick="swap(this)">
+        <img src="LINK_IMAGE_DRIVE_2" alt="">
+    </div>
+
+    <div class="polaroid" onclick="swap(this)">
+        <img src="LINK_IMAGE_DRIVE_3" alt="">
+    </div>
+
+</div>
+
+<!-- 🎵 Spotify -->
+<a href="SPOTIFY_LINK_KAMU" target="_blank" class="spotify-btn">
+    Our Song 🎶
+</a>
+
+<script>
+
+function openLetter() {
+    document.getElementById("letter").style.display = "block";
+}
+
+function swap(clicked) {
+    const gallery = document.getElementById("gallery");
+    gallery.prepend(clicked);
+}
+
+</script>
+
+</body>
+</html>
