@@ -1,197 +1,126 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Anniversary</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet"> <style>
-        :root {
-            --bg-color: #fdf0d5; /* Cream Vintage */
-            --accent-pink: #ffb5a7;
-            --dark-text: #665c5c;
-            --white: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kado Untuk Kamu</title>
 
-        body {
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Special Elite', system-ui; /* Ticketing Font */
-            color: var(--dark-text);
-            overflow-x: hidden;
-        }
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        /* --- KADO ANIMASI --- */
-        #gift-section {
-            text-align: center;
-            transition: all 0.8s ease;
-        }
+  <style>
+    body {
+      background-color: #fff0f3;
+    }
 
-        .gift-box {
-            font-size: 100px;
-            cursor: pointer;
-            display: inline-block;
-            animation: bounce 2s infinite;
-        }
+    .gift-box {
+      width: 200px;
+      height: 150px;
+      background-color: #ff9aa2;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: 0.5s;
+    }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
-        }
+    /* Ribbon vertical */
+    .gift-box::before {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 100%;
+      background: #b5ead7;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-        /* --- POPUP LETTER --- */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            z-index: 100;
-        }
+    /* Ribbon horizontal */
+    .gift-box::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 30px;
+      background: #b5ead7;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
-        .letter-content {
-            background: #fff;
-            width: 85%;
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 40px;
-            border-radius: 2px;
-            box-shadow: 20px 20px 0px var(--accent-pink);
-            font-family: 'Helvetica', 'Arial', sans-serif; /* Helvetica Roman */
-            line-height: 1.6;
-            position: relative;
-        }
+    .box-lid {
+      position: absolute;
+      width: 220px;
+      height: 40px;
+      background: #ff9aa2;
+      border-radius: 8px;
+      top: -20px;
+      left: -10px;
+      transition: 0.5s;
+    }
 
-        .letter-content h2 {
-            font-weight: 300;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
+    .gift-box:hover .box-lid {
+      transform: translateY(-10px);
+    }
 
-        /* --- POLAROID GULIR --- */
-        #gallery-section {
-            display: none;
-            width: 100%;
-            padding: 50px 0;
-            text-align: center;
-        }
-
-        .scroll-container {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 20px;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none; /* Hide scrollbar */
-        }
-
-        .polaroid {
-            flex: 0 0 auto;
-            background: white;
-            padding: 15px 15px 40px 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            scroll-snap-align: center;
-            transform: rotate(calc(-2deg + (4deg * var(--i))));
-        }
-
-        .polaroid img {
-            width: 250px;
-            height: 300px;
-            object-fit: cover;
-            filter: sepia(0.2);
-        }
-
-        .caption {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        /* --- SPOTIFY BUTTON --- */
-        .spotify-btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 15px 30px;
-            background: #1DB954;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-family: 'Special Elite', sans-serif;
-            transition: 0.3s;
-        }
-
-        .spotify-btn:hover { background: #1ed760; transform: scale(1.05); }
-
-        .btn-next {
-            margin-top: 20px;
-            background: var(--accent-pink);
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: 'Special Elite';
-        }
-    </style>
+    .gift-box.open {
+      transform: scale(0);
+      opacity: 0;
+    }
+  </style>
 </head>
-<body>
 
-    <div id="gift-section">
-        <div class="gift-box" onclick="openLetter()">🎁</div>
-        <p>Ada sesuatu untukmu...</p>
+<body class="flex items-center justify-center min-h-screen flex-col bg-[#fff0f3]">
+    
+body {
+  background-color: #fff0f3;
+  font-family: -apple-system, BlinkMacSystemFont, 
+               "SF Pro Display", "SF Pro Text",
+               "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+    
+  <!-- SECTION KADO -->
+  <div id="section-gift" class="flex flex-col items-center">
+    <h1 class="text-3xl mb-10 text-pink-400 font-bold">
+      Ada Kado Buat Kamu 🎀
+    </h1>
+
+    <div id="giftBox" class="gift-box" onclick="openGift()">
+      <div class="box-lid"></div>
+    </div>
+  </div>
+
+  <!-- SECTION SURAT (AWALNYA HIDDEN) -->
+  <div id="section-letter"
+       class="hidden opacity-0 transition-opacity duration-1000 text-center max-w-md mt-10">
+
+    <div class="bg-white p-8 rounded-2xl shadow-lg border border-pink-200">
+      <h2 class="text-2xl font-bold text-pink-400 mb-4">
+        Happy Anniversary 💗
+      </h2>
+
+      <p class="text-gray-600 leading-relaxed">
+        Makasih ya udah jadi orang yang selalu ada buat aku.
+        Semoga kita makin kuat dan makin sayang setiap harinya.
+      </p>
     </div>
 
-    <div class="overlay" id="letterOverlay">
-        <div class="letter-content">
-            <h2>Haii Sayang,</h2>
-            <p>
-                Gak kerasa ya kita udah sampai di titik ini. Aku cuma mau bilang terima kasih 
-                karena kamu udah sabar, udah mau dengerin ceritaku yang kadang gak jelas, 
-                dan udah jadi orang yang paling dukung aku.
-            </p>
-            <p>
-                Setiap momen sama kamu itu berharga banget. Semoga kedepannya kita bisa 
-                terus bareng-bareng, ya? I love you more than words can say.
-            </p>
-            <p style="text-align: right;">— Peluk hangat, Aku.</p>
-            <button class="btn-next" onclick="showGallery()">Buka Kenangan Kita ✨</button>
-        </div>
-    </div>
+  <script>
+  function openGift() {
+    const box = document.getElementById("giftBox");
+    const giftSection = document.getElementById("section-gift");
+    const letter = document.getElementById("section-letter");
 
-    <div id="gallery-section">
-        <h3>Memories of Us</h3>
-        <div class="scroll-container">
-            <div class="polaroid" style="--i:1"><img src="foto1.jpg"><div class="caption">I.</div></div>
-            <div class="polaroid" style="--i:2"><img src="foto2.jpg"><div class="caption">Love.</div></div>
-            <div class="polaroid" style="--i:3"><img src="foto3.jpg"><div class="caption">You.</div></div>
-        </div>
+    // Animasi hilang
+    box.classList.add("open");
 
-        <a href="https://open.spotify.com/playlist/2TRxJgHwkyfp6K1oAzAuvq?si=6UxaAANZT8GCxkjS6MCXVw&pi=YbUPHe0QRBmP_" class="spotify-btn" target="_blank">
-            🎧 Dengerin Lagu Kita di Spotify
-        </a>
-    </div>
+    // Tunggu animasi selesai
+    setTimeout(() => {
+      giftSection.classList.add("hidden");
+      letter.classList.remove("hidden");
 
-    <script>
-        function openLetter() {
-            document.getElementById('letterOverlay').style.display = 'block';
-        }
-
-        function showGallery() {
-            document.getElementById('letterOverlay').style.display = 'none';
-            document.getElementById('gift-section').style.display = 'none';
-            document.getElementById('gallery-section').style.display = 'block';
-            
-            // Animasi masuk gallery
-            document.getElementById('gallery-section').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('gallery-section').style.opacity = 1;
-                document.getElementById('gallery-section').style.transition = 'opacity 1.5s';
-            }, 100);
-        }
-    </script>
-</body>
-</html>
-
+      // Biar fade in
+      setTimeout(() => {
+        letter.classList.remove("opacity-0");
+        letter.classList.add("opacity-100");
+      }, 100);
+    }, 600);
+  }
+  </script>
